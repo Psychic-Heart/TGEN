@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caption Generator</title>
+    <link rel="stylesheet" href="ui.css">
+    <link rel="icon" type="image/x-icon" href="https://c4.wallpaperflare.com/wallpaper/67/97/91/elden-ring-ranni-elden-ring-hd-wallpaper-preview.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header class="bg-info" style="position: fixed;width: 100%;">
+        <div class="container-fluid">
+            <div class="row text-white">
+                <div class="col-md-6 col-7 p-3 ps-5">
+                    <h2 id="head-left"><i>Caption-Generator</i></h2>
+                </div>
+                <div class="col-md-6 col-5 my-auto">
+                    <nav class="navbar navbar-expand-lg ">
+                        <div class="container-fluid">
+                          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                          </button>
+                          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                              <li class="nav-item">
+                                <a class="nav-link active text-white" aria-current="page" href="#home-section">Home</a>
+                              </li>
+                              <li class="nav-services">
+                                <a class="nav-link text-white" href="#service-section">Services</a>
+                              </li>
+                              <li class="nav-contact">
+                                <a class="nav-link text-white" href="#contact-section">Contact</a>
+                              </li>
+                            </ul>
+                            <form class="d-flex" role="search">
+                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                          </div>
+                        </div>
+                      </nav> 
+                </div>
+            </div>
+        </div>
+    </header>
+  <div style="background-image: url('https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?cs=srgb&dl=pexels-pixabay-206359.jpg&fm=jpg');">
+    <section class="p-4" id="home-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 pt-4 mx-auto my-auto">
+                    <p class="text-center pt-5" style="font-size: medium; color: #fff;"><i>"This project aims to develop an efficient system capable of accurately extracting meaningful textual information from images. The proposed system leverages deep learning techniques, employing convolutional neural networks (CNNs) for image feature extraction and long short-term memory (LSTM) networks for sequence modeling. The process involves pre-processing the input image, extracting visual features using a CNN, and then utilizing an LSTM network to generate descriptive text. The system is trained on a sizable dataset of paired images and corresponding captions to learn the mapping between visual content and textual descriptions."</i></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="p-4" id="service-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="Box">
+                    <form action="https://colab.research.google.com/drive/1c1-TT4UJePcwbvzYBnML42twREIweBRG#scrollTo=T02_OQV95RuO&line=1&uniqifier=1">
+                        <input type="file" id="myFile" name="filename" accept="image/*" onchange="previewImage(event)">
+                            <div class="subox" id="image-preview-container">
+                                <img id="image-preview" style="max-width: 100%;height:100% ; display: none;">
+                            </div>
+                        </div>
+                        <input type="submit" value="Submit" style="width: 300px;" class="p-2"><br>
+                        <p style="color: #fff;">Generated caption:</p>
+                        <input type="text" class="text-center bg-secondary" style="width:90%;">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+    <footer class="p-4 bg-info" id="contact-section">
+        <div class="container">
+            <div class="row text-center text-white p-2 my-auto">
+                <p>Contact: xxxxxxxxxx</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('image-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                document.getElementById('image-preview-container').style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function uploadFile(event) {
+            event.preventDefault();
+            var form = document.getElementById('upload-form');
+            var formData = new FormData(form);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                document.getElementById('caption-input-container').style.display = 'block';
+                document.getElementById('generated-caption').innerText = data.generated_caption || '';
+              });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

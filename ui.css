@@ -1,0 +1,21 @@
+#head-left{
+    padding: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+#img{
+    height: 100px;
+    width: 400px;
+}
+
+.Box{
+    width: 400px;
+    height: 500px;
+    /*background: navajowhite;*/
+    border-radius: 20px;
+}
+
+.subox{
+    width: 300px;
+    height: 400px;
+    background: #fff;
+}
